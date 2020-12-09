@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.2 r1790748">
+  <hashTree>
+    <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="t8数据库连接配置" enabled="true">
+      <stringProp name="dataSource">test8_sql</stringProp>
+      <stringProp name="poolMax">10</stringProp>
+      <stringProp name="timeout">10000</stringProp>
+      <stringProp name="trimInterval">60000</stringProp>
+      <boolProp name="autocommit">true</boolProp>
+      <stringProp name="transactionIsolation">DEFAULT</stringProp>
+      <boolProp name="keepAlive">true</boolProp>
+      <stringProp name="connectionAge">5000</stringProp>
+      <stringProp name="checkQuery">Select 1</stringProp>
+      <stringProp name="dbUrl">jdbc:mysql://localhost:63306/test_zhijian2</stringProp>
+      <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
+      <stringProp name="username">zj_test</stringProp>
+      <stringProp name="password">test_PLLhnSDF2KdJFzVQ</stringProp>
+    </JDBCDataSource>
+    <hashTree/>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,0 +1,46 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,Latency,IdleTime,Connect
+1579342116653,377,http://192.168.137.128/,200,OK,Thread Group 1-1,text,true,,2755,0,1,1,377,0,0
+1579342117087,103,进入登陆页面,200,OK,Thread Group 1-1,text,true,,3423,0,1,1,103,0,0
+1579342117645,31,http://192.168.137.128/,200,OK,Thread Group 1-2,text,true,,2755,0,2,2,31,0,0
+1579342117678,49,进入登陆页面,200,OK,Thread Group 1-2,text,true,,3423,0,2,2,49,0,0
+1579342117192,622,登陆请求,200,OK,Thread Group 1-1,text,true,,3383,0,2,2,575,0,0
+1579342117191,622,事务控制器,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,3383,0,2,2,575,1,0
+1579342117815,51,进入主题,200,OK,Thread Group 1-1,text,true,,3206,0,2,2,51,0,0
+1579342117867,561,进入条目,200,OK,Thread Group 1-1,text,true,,104037,0,2,2,546,0,0
+1579342118433,64,编辑条目页面,200,OK,Thread Group 1-1,text,true,,2846,0,2,2,64,0,0
+1579342118642,423,http://192.168.137.128/,200,OK,Thread Group 1-3,text,true,,2755,0,3,3,423,0,0
+1579342118500,665,发表条目,200,OK,Thread Group 1-1,text,true,,104685,0,3,3,65,0,0
+1579342118428,729,发表条目事务,200,"Number of samples in transaction : 2, number of failing samples : 0",Thread Group 1-1,,true,,107531,0,3,3,129,8,0
+1579342119169,75,进入主题,200,OK,Thread Group 1-1,text,true,,3206,0,3,3,75,0,0
+1579342119069,289,进入登陆页面,200,OK,Thread Group 1-3,text,true,,3423,0,3,3,289,0,0
+1579342117733,1735,登陆请求,200,OK,Thread Group 1-2,text,true,,3384,0,3,3,1566,0,0
+1579342117729,1735,事务控制器,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-2,,true,,3384,0,3,3,1566,5,0
+1579342119470,147,进入主题,200,OK,Thread Group 1-2,text,true,,2527,0,3,3,147,0,0
+1579342119246,529,进入条目,200,OK,Thread Group 1-1,text,true,,104447,0,3,3,515,0,0
+1579342119782,60,编辑条目页面,200,OK,Thread Group 1-1,text,true,,2846,0,3,3,60,0,0
+1579342119617,604,进入条目,200,OK,Thread Group 1-2,text,true,,101578,0,3,3,597,0,0
+1579342120227,75,编辑条目页面,200,OK,Thread Group 1-2,text,true,,2848,0,3,3,75,0,0
+1579342119849,545,发表条目,200,OK,Thread Group 1-1,text,true,,105095,0,3,3,86,0,0
+1579342119776,605,发表条目事务,200,"Number of samples in transaction : 2, number of failing samples : 0",Thread Group 1-1,,true,,107941,0,3,3,146,13,0
+1579342120394,0,Debug Sampler,200,OK,Thread Group 1-1,text,true,,1198,0,3,3,0,0,0
+1579342119361,1195,登陆请求,200,OK,Thread Group 1-3,text,true,,3379,0,2,2,1163,0,0
+1579342119359,1195,事务控制器,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-3,,true,,3379,0,2,2,1163,1,0
+1579342120556,34,进入主题,200,OK,Thread Group 1-3,text,true,,2652,0,2,2,34,0,0
+1579342120304,454,发表条目,200,OK,Thread Group 1-2,text,true,,102226,0,2,2,51,0,0
+1579342120223,529,发表条目事务,200,"Number of samples in transaction : 2, number of failing samples : 0",Thread Group 1-2,,true,,105074,0,2,2,126,7,0
+1579342120763,35,进入主题,200,OK,Thread Group 1-2,text,true,,2527,0,2,2,35,0,0
+1579342120592,311,进入条目,200,OK,Thread Group 1-3,text,true,,101566,0,2,2,300,0,0
+1579342120904,42,编辑条目页面,200,OK,Thread Group 1-3,text,true,,2838,0,2,2,42,0,0
+1579342120799,309,进入条目,200,OK,Thread Group 1-2,text,true,,101988,0,2,2,304,0,0
+1579342121110,37,编辑条目页面,200,OK,Thread Group 1-2,text,true,,2848,0,2,2,37,0,0
+1579342120949,357,发表条目,200,OK,Thread Group 1-3,text,true,,102214,0,2,2,37,0,0
+1579342120903,399,发表条目事务,200,"Number of samples in transaction : 2, number of failing samples : 0",Thread Group 1-3,,true,,105052,0,2,2,79,5,0
+1579342121308,39,进入主题,200,OK,Thread Group 1-3,text,true,,2652,0,2,2,39,0,0
+1579342121149,402,发表条目,200,OK,Thread Group 1-2,text,true,,102636,0,2,2,33,0,0
+1579342121108,439,发表条目事务,200,"Number of samples in transaction : 2, number of failing samples : 0",Thread Group 1-2,,true,,105484,0,2,2,70,5,0
+1579342121552,1,Debug Sampler,200,OK,Thread Group 1-2,text,true,,1201,0,2,2,0,0,0
+1579342121349,264,进入条目,200,OK,Thread Group 1-3,text,true,,101976,0,1,1,256,0,0
+1579342121615,21,编辑条目页面,200,OK,Thread Group 1-3,text,true,,2838,0,1,1,21,0,0
+1579342121640,167,发表条目,200,OK,Thread Group 1-3,text,true,,102624,0,1,1,17,0,0
+1579342121614,188,发表条目事务,200,"Number of samples in transaction : 2, number of failing samples : 0",Thread Group 1-3,,true,,105462,0,1,1,38,5,0
+1579342121807,1,Debug Sampler,200,OK,Thread Group 1-3,text,true,,1196,0,1,1,0,0,0
