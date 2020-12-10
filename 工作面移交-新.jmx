@@ -113,7 +113,7 @@
             </elementProp>
             <elementProp name="deliver" elementType="Argument">
               <stringProp name="Argument.name">deliver</stringProp>
-              <stringProp name="Argument.value">${__RandomDate(,,2020-12-30,,)}</stringProp>
+              <stringProp name="Argument.value">${__RandomDate(,,2021-12-30,,)}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
               <stringProp name="Argument.desc">实物交接日期</stringProp>
             </elementProp>
@@ -587,6 +587,10 @@
             <hashTree/>
           </hashTree>
         </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="接收表单" enabled="true"/>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="移交表单" enabled="true"/>
+        <hashTree/>
         <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="调试取样器" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
