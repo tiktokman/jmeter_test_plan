@@ -1,0 +1,8 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1607758123521,209,发起人登录,200,OK,工作面移交 1-1,text,true,,677,304,1,1,http://zj.buildingqm.com/uc/user/login/,203,0,146
+1607758123741,180,获取表单定义,200,OK,工作面移交 1-1,text,true,,3318,521,1,1,http://zj.buildingqm.com/app_flow/v1/papi/processform/worktransfer_yc/list/definition/?form_name=worktransfer_yc&form_type=processform&entrance_def_id=list_pc&panel_type=%24%7Bdataform_web%7D&group_id=100546&team_id=100547&project_id=100756&page_level=project,180,0,0
+1607758124039,218,获取发起表单定义,200,OK,工作面移交 1-1,text,true,,3948,482,1,1,http://zj.buildingqm.com/app_flow/v1/papi/process/worktransfer_yc/start/definition/?operation_def_id=worktransfer_create&process=worktransfer_yc&group_id=100546&team_id=100547&project_id=100756&page_level=project&event=3,218,0,0
+1607758124263,143,上传附件,200,OK,工作面移交 1-1,text,true,,532,4107,1,1,http://zj.buildingqm.com/platform/v1/papi/app_file/upload/,143,0,0
+1607758124415,1335,填写工作面移交表单,200,OK,工作面移交 1-1,text,true,,472,1029,1,1,http://zj.buildingqm.com/app_flow/v1/papi/process/worktransfer_yc/start/submit/?group_id=100546&team_id=100547&project_id=100756&page_level=project,1335,0,0
+1607758125752,224,验证表单生成,200,OK,工作面移交 1-1,text,true,,6185,539,1,1,http://zj.buildingqm.com/app_flow/v1/papi/processform/worktransfer_yc/list/search/?form_name=worktransfer_yc&form_type=processform&entrance_def_id=list_pc&panel_type=dataform_web&action=first&limit=10&last_at=&group_id=100546&team_id=100547&project_id=100756&page_level=project,224,0,0
+1607758126026,2,调试取样器,200,OK,工作面移交 1-1,text,true,,612,0,1,1,null,0,0,0

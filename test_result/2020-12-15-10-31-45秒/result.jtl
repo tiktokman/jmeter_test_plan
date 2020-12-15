@@ -1,0 +1,5 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1607999511009,151,发起人登录,200,OK,工作面移交 1-1,text,true,,683,343,1,1,http://zj.buildingqm.com/uc/user/login/,146,0,97
+1607999511170,151,获取表单定义,200,OK,工作面移交 1-1,text,true,,3317,560,1,1,http://zj.buildingqm.com/app_flow/v1/papi/processform/worktransfer_yc/list/definition/?form_name=worktransfer_yc&form_type=processform&entrance_def_id=list_pc&panel_type=%24%7Bdataform_web%7D&group_id=100546&team_id=100547&project_id=100756&page_level=project,150,0,0
+1607999511427,572,获取发起表单定义,200,OK,工作面移交 1-1,text,true,,3947,521,1,1,http://zj.buildingqm.com/app_flow/v1/papi/process/worktransfer_yc/start/definition/?operation_def_id=worktransfer_create&process=worktransfer_yc&group_id=100546&team_id=100547&project_id=100756&page_level=project&event=3,572,0,0
+1607999535739,3,调试取样器,200,OK,工作面移交 1-1,text,true,,519,0,1,1,null,0,0,0

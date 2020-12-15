@@ -33,7 +33,7 @@
           <stringProp name="HTTPSampler.domain">zj.buildingqm.com</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
           <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
@@ -48,9 +48,9 @@
         <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name"></stringProp>
-              <stringProp name="Header.value"></stringProp>
+            <elementProp name="Accept" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
             </elementProp>
           </collectionProp>
         </HeaderManager>
@@ -180,7 +180,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="登录断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="927843401">登录成功</stringProp>
               </collectionProp>
@@ -344,7 +344,7 @@
             <stringProp name="HTTPSampler.domain"></stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
             <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/${form_name}/start/definition/</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
@@ -356,6 +356,472 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="断言响应结果体" enabled="false">
+              <stringProp name="scriptLanguage">jython</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">false</stringProp>
+              <stringProp name="script">#!python2
+import sys
+import os
+import json
+
+
+sys.path.append(r&apos;C:\Users\hallo\AppData\Local\Programs\Python\Python27\Lib&apos;)
+sys.path.append(r&apos;C:\Users\hallo\AppData\Local\Programs\Python\Python27\Lib\site-packages&apos;)
+
+from jsonschema import validate
+
+true = True 
+false = False 
+
+
+responsedata = prev.getResponseDataAsString() #响应数据含有中文，python2返回的是&lt;type &apos;unicode&apos;&gt;
+
+josn_str = json.dumps(responsedata)  #json在调用dumps时会将中文转化为Unicode编码      &lt;type &apos;unicode&apos;&gt; 
+
+ojt = json.loads(josn_str).encode(&apos;utf-8&apos;) #  &lt;type &apos;unicode&apos;&gt;
+
+
+ojt = json.loads(ojt)  # &lt;type &apos;dict&apos;&gt;
+
+
+
+#发起表单定义接口响应，检测必须字段完整性、类型、object属性，内层elements数组只检测字段完整性，不校验数组嵌套的object属性
+schema_array_noprop = {
+    &quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;data&quot;,
+        &quot;result&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;data&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;definition&quot;,
+                &quot;schema&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;definition&quot;: {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;processform&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;processform&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;cc&quot;,
+                                &quot;elements&quot;,
+                                &quot;enable_cc&quot;,
+                                &quot;id&quot;,
+                                &quot;level&quot;,
+                                &quot;name&quot;,
+                                &quot;process&quot;,
+                                &quot;type&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;cc&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;node&quot;,
+                                        &quot;selecter&quot;,
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;node&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        },
+                                        &quot;selecter&quot;: {
+                                            &quot;type&quot;: &quot;object&quot;,
+                                            &quot;required&quot;: [
+                                                &quot;id&quot;,
+                                                &quot;name&quot;,
+                                                &quot;range_remote&quot;,
+                                                &quot;type&quot;,
+                                                &quot;value_type&quot;
+                                            ],
+                                            &quot;properties&quot;: {
+                                                &quot;id&quot;: {
+                                                    &quot;type&quot;: &quot;string&quot;
+                                                },
+                                                &quot;name&quot;: {
+                                                    &quot;type&quot;: &quot;string&quot;
+                                                },
+                                                &quot;range_remote&quot;: {
+                                                    &quot;type&quot;: &quot;object&quot;,
+                                                    &quot;required&quot;: [
+                                                        &quot;type&quot;
+                                                    ],
+                                                    &quot;properties&quot;: {
+                                                        &quot;type&quot;: {
+                                                            &quot;type&quot;: &quot;string&quot;
+                                                        }
+                                                    },
+                                                    &quot;additionalProperties&quot;: true
+                                                },
+                                                &quot;type&quot;: {
+                                                    &quot;type&quot;: &quot;string&quot;
+                                                },
+                                                &quot;value_type&quot;: {
+                                                    &quot;type&quot;: &quot;string&quot;
+                                                }
+                                            },
+                                            &quot;additionalProperties&quot;: true
+                                        },
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;elements&quot;: {
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;anyOf&quot;: [
+                                            {
+                                                &quot;type&quot;: &quot;object&quot;,
+                                                &quot;required&quot;: [
+                                                    &quot;check&quot;,
+                                                    &quot;id&quot;,
+                                                    &quot;name&quot;,
+                                                    &quot;perm&quot;,
+                                                    &quot;range_remote&quot;,
+                                                    &quot;type&quot;,
+                                                    &quot;value_type&quot;
+                                                ],
+                                            },
+                                            {
+                                                &quot;type&quot;: &quot;object&quot;,
+                                                &quot;required&quot;: [
+                                                    &quot;check&quot;,
+                                                    &quot;id&quot;,
+                                                    &quot;name&quot;,
+                                                    &quot;perm&quot;,
+                                                    &quot;type&quot;,
+                                                    &quot;value_type&quot;,
+                                                    &quot;view&quot;
+                                                ],
+                                            },
+                                            {
+                                                &quot;type&quot;: &quot;object&quot;,
+                                                &quot;required&quot;: [
+                                                    &quot;check&quot;,
+                                                    &quot;id&quot;,
+                                                    &quot;name&quot;,
+                                                    &quot;perm&quot;,
+                                                    &quot;type&quot;,
+                                                    &quot;value_type&quot;
+                                                ],
+                                            },
+                                            {
+                                                &quot;type&quot;: &quot;object&quot;,
+                                                &quot;required&quot;: [
+                                                    &quot;check&quot;,
+                                                    &quot;id&quot;,
+                                                    &quot;name&quot;,
+                                                    &quot;perm&quot;,
+                                                    &quot;type&quot;,
+                                                    &quot;upload_url&quot;,
+                                                    &quot;value_type&quot;
+                                                ],
+                                            },
+                                            {
+                                                &quot;type&quot;: &quot;object&quot;,
+                                                &quot;required&quot;: [
+                                                    &quot;check&quot;,
+                                                    &quot;filters&quot;,
+                                                    &quot;id&quot;,
+                                                    &quot;name&quot;,
+                                                    &quot;perm&quot;,
+                                                    &quot;range_remote&quot;,
+                                                    &quot;type&quot;,
+                                                    &quot;value_type&quot;
+                                                ],
+                                            }
+                                        ]
+                                    }
+                                },
+                                &quot;enable_cc&quot;: {
+                                    &quot;type&quot;: &quot;boolean&quot;
+                                },
+                                &quot;id&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                },
+                                &quot;level&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                },
+                                &quot;name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                },
+                                &quot;process&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                },
+                                &quot;type&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                }
+                            },
+                            &quot;additionalProperties&quot;: true
+                        }
+                    },
+                    &quot;additionalProperties&quot;: true
+                },
+                &quot;schema&quot;: {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;properties&quot;,
+                        &quot;required&quot;,
+                        &quot;type&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;properties&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;contant&quot;,
+                                &quot;contract&quot;,
+                                &quot;deliver&quot;,
+                                &quot;first_party&quot;,
+                                &quot;manage&quot;,
+                                &quot;manager&quot;,
+                                &quot;receive&quot;,
+                                &quot;receiver&quot;,
+                                &quot;sender&quot;,
+                                &quot;user_file&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;contant&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;maxLength&quot;,
+                                        &quot;minLength&quot;,
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;maxLength&quot;: {
+                                            &quot;type&quot;: &quot;integer&quot;
+                                        },
+                                        &quot;minLength&quot;: {
+                                            &quot;type&quot;: &quot;integer&quot;
+                                        },
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;contract&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;deliver&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;minLength&quot;,
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;minLength&quot;: {
+                                            &quot;type&quot;: &quot;integer&quot;
+                                        },
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;first_party&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;manage&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;manager&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;receive&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;receiver&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;sender&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                },
+                                &quot;user_file&quot;: {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;items&quot;,
+                                        &quot;maxItems&quot;,
+                                        &quot;minItems&quot;,
+                                        &quot;type&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;items&quot;: {
+                                            &quot;type&quot;: &quot;object&quot;,
+                                            &quot;required&quot;: [
+                                                &quot;properties&quot;,
+                                                &quot;required&quot;,
+                                                &quot;type&quot;
+                                            ],
+                                            &quot;properties&quot;: {
+                                                &quot;properties&quot;: {
+                                                    &quot;type&quot;: &quot;object&quot;,
+                                                    &quot;required&quot;: [
+                                                        &quot;filename&quot;,
+                                                        &quot;md5&quot;
+                                                    ],
+                                                    &quot;properties&quot;: {
+                                                        &quot;filename&quot;: {
+                                                            &quot;type&quot;: &quot;object&quot;,
+                                                            &quot;required&quot;: [
+                                                                &quot;type&quot;
+                                                            ],
+                                                            &quot;properties&quot;: {
+                                                                &quot;type&quot;: {
+                                                                    &quot;type&quot;: &quot;string&quot;
+                                                                }
+                                                            },
+                                                            &quot;additionalProperties&quot;: true
+                                                        },
+                                                        &quot;md5&quot;: {
+                                                            &quot;type&quot;: &quot;object&quot;,
+                                                            &quot;required&quot;: [
+                                                                &quot;type&quot;
+                                                            ],
+                                                            &quot;properties&quot;: {
+                                                                &quot;type&quot;: {
+                                                                    &quot;type&quot;: &quot;string&quot;
+                                                                }
+                                                            },
+                                                            &quot;additionalProperties&quot;: true
+                                                        }
+                                                    },
+                                                    &quot;additionalProperties&quot;: true
+                                                },
+                                                &quot;required&quot;: {
+                                                    &quot;type&quot;: &quot;array&quot;,
+                                                    &quot;items&quot;: {
+                                                        &quot;anyOf&quot;: [
+                                                            {
+                                                                &quot;type&quot;: &quot;string&quot;
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                &quot;type&quot;: {
+                                                    &quot;type&quot;: &quot;string&quot;
+                                                }
+                                            },
+                                            &quot;additionalProperties&quot;: true
+                                        },
+                                        &quot;maxItems&quot;: {
+                                            &quot;type&quot;: &quot;integer&quot;
+                                        },
+                                        &quot;minItems&quot;: {
+                                            &quot;type&quot;: &quot;integer&quot;
+                                        },
+                                        &quot;type&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;
+                                        }
+                                    },
+                                    &quot;additionalProperties&quot;: true
+                                }
+                            },
+                            &quot;additionalProperties&quot;: true
+                        },
+                        &quot;required&quot;: {
+                            &quot;type&quot;: &quot;array&quot;,
+                            &quot;items&quot;: {
+                                &quot;anyOf&quot;: [
+                                    {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    }
+                                ]
+                            }
+                        },
+                        &quot;type&quot;: {
+                            &quot;type&quot;: &quot;string&quot;
+                        }
+                    },
+                    &quot;additionalProperties&quot;: true
+                }
+            },
+            &quot;additionalProperties&quot;: true
+        },
+        &quot;result&quot;: {
+            &quot;type&quot;: &quot;integer&quot;
+        }
+    },
+    &quot;additionalProperties&quot;: true
+}
+#校验
+validate(instance=ojt, schema=schema_array_noprop)
+</stringProp>
+            </JSR223Assertion>
+            <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="88863673">&quot;result&quot;:0</stringProp>
@@ -370,8 +836,8 @@
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="上传附件" enabled="true">
             <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
               <collectionProp name="HTTPFileArgs.files">
-                <elementProp name="C:\workspace\my_png\IMG_1.png" elementType="HTTPFileArg">
-                  <stringProp name="File.path">C:\workspace\my_png\IMG_1.png</stringProp>
+                <elementProp name="C:\workspace\my_png\IMG_2.png" elementType="HTTPFileArg">
+                  <stringProp name="File.path">C:\workspace\my_png\IMG_2.png</stringProp>
                   <stringProp name="File.paramname">userfile</stringProp>
                   <stringProp name="File.mimetype">image/jpeg</stringProp>
                 </elementProp>
@@ -568,29 +1034,839 @@
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="TestPlan.comments">返回表单列表</stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="断言表单标题" enabled="true">
               <stringProp name="JSON_PATH">$.data.data[0].title</stringProp>
               <stringProp name="EXPECTED_VALUE">工作面移交-${content}</stringProp>
               <boolProp name="JSONVALIDATION">true</boolProp>
               <boolProp name="EXPECT_NULL">false</boolProp>
               <boolProp name="INVERT">false</boolProp>
               <boolProp name="ISREGEX">true</boolProp>
+              <stringProp name="TestPlan.comments">响应里首个表单标题</stringProp>
             </JSONPathAssertion>
             <hashTree/>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取生成的表单id" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">form_id;</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data[0].form_id</stringProp>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="断言表单状态" enabled="true">
+              <stringProp name="JSON_PATH">$.data.data[0].process_status</stringProp>
+              <stringProp name="EXPECTED_VALUE">2</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取生成的表单id、任务id、流程id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">form_id;task_id;process_id;</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data[0].form_id;$.data.data[0].tasks[0].task_id;$.data.data[0].process_id;</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0;0;0;</stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="接收表单" enabled="true"/>
-        <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="移交表单" enabled="true"/>
-        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="移交人移交表单" enabled="true"/>
+        <hashTree>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+            <collectionProp name="CookieManager.cookies"/>
+            <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+            <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+          </CookieManager>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="移交人登录" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="user_name" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">kentest48</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">user_name</stringProp>
+                </elementProp>
+                <elementProp name="password" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">password</stringProp>
+                </elementProp>
+                <elementProp name="group_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_code</stringProp>
+                </elementProp>
+                <elementProp name="remember_me" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">0</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">remember_me</stringProp>
+                </elementProp>
+                <elementProp name="verify_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">verify_code</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/uc/user/login/</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="登录断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="927843401">登录成功</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单移交内容" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="operation_def_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">complete_task</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">operation_def_id</stringProp>
+                </elementProp>
+                <elementProp name="task_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">2</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">task_id</stringProp>
+                </elementProp>
+                <elementProp name="process_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${process_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process_id</stringProp>
+                </elementProp>
+                <elementProp name="process" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">worktransfer_yc</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process</stringProp>
+                </elementProp>
+                <elementProp name="group_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${group_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_id</stringProp>
+                </elementProp>
+                <elementProp name="team_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${team_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">team_id</stringProp>
+                </elementProp>
+                <elementProp name="project_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${project_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">project_id</stringProp>
+                </elementProp>
+                <elementProp name="page_level" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${page_level}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">page_level</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/get/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取移交内容" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">f_fields</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="确认移交表单" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;fields&quot;: ${f_fields},&#xd;
+  &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
+  &quot;task_id&quot;: 2,&#xd;
+  &quot;process_id&quot;: &quot;${process_id}&quot;,&#xd;
+  &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
+  &quot;cc&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="断言成功移交" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1658181597">{&quot;data&quot;:{},&quot;result&quot;:0}</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="接收人接收表单" enabled="true"/>
+        <hashTree>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+            <collectionProp name="CookieManager.cookies"/>
+            <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+            <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+          </CookieManager>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="接收人登录" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="user_name" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">kentest41</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">user_name</stringProp>
+                </elementProp>
+                <elementProp name="password" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">password</stringProp>
+                </elementProp>
+                <elementProp name="group_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_code</stringProp>
+                </elementProp>
+                <elementProp name="remember_me" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">0</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">remember_me</stringProp>
+                </elementProp>
+                <elementProp name="verify_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">verify_code</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/uc/user/login/</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="登录断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="927843401">登录成功</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单接收内容" enabled="false">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="operation_def_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">complete_task</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">operation_def_id</stringProp>
+                </elementProp>
+                <elementProp name="task_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">3</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">task_id</stringProp>
+                </elementProp>
+                <elementProp name="process_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${process_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process_id</stringProp>
+                </elementProp>
+                <elementProp name="process" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">worktransfer_yc</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process</stringProp>
+                </elementProp>
+                <elementProp name="group_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${group_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_id</stringProp>
+                </elementProp>
+                <elementProp name="team_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${team_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">team_id</stringProp>
+                </elementProp>
+                <elementProp name="project_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${project_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">project_id</stringProp>
+                </elementProp>
+                <elementProp name="page_level" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${page_level}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">page_level</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/get/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="确认接收表单" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;fields&quot;: ${f_fields},&#xd;
+  &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
+  &quot;task_id&quot;: 3,&#xd;
+  &quot;process_id&quot;: &quot;${process_id}&quot;,&#xd;
+  &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
+  &quot;cc&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="断言成功接收" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1658181597">{&quot;data&quot;:{},&quot;result&quot;:0}</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="总监审核表单" enabled="true"/>
+        <hashTree>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+            <collectionProp name="CookieManager.cookies"/>
+            <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+            <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+          </CookieManager>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="总监登录" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="user_name" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">kentest52</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">user_name</stringProp>
+                </elementProp>
+                <elementProp name="password" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">password</stringProp>
+                </elementProp>
+                <elementProp name="group_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_code</stringProp>
+                </elementProp>
+                <elementProp name="remember_me" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">0</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">remember_me</stringProp>
+                </elementProp>
+                <elementProp name="verify_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">verify_code</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/uc/user/login/</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="登录断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="927843401">登录成功</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单审核内容" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="operation_def_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">complete_task</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">operation_def_id</stringProp>
+                </elementProp>
+                <elementProp name="task_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">4</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">task_id</stringProp>
+                </elementProp>
+                <elementProp name="process_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${process_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process_id</stringProp>
+                </elementProp>
+                <elementProp name="process" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">worktransfer_yc</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process</stringProp>
+                </elementProp>
+                <elementProp name="group_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${group_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_id</stringProp>
+                </elementProp>
+                <elementProp name="team_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${team_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">team_id</stringProp>
+                </elementProp>
+                <elementProp name="project_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${project_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">project_id</stringProp>
+                </elementProp>
+                <elementProp name="page_level" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${page_level}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">page_level</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/get/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取审核内容" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">content;user_file</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields.content;$.data.data.f_fields.user_file</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0;0</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="总监审核通过表单" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;fields&quot;: {&#xd;
+    &quot;contant&quot;: &quot;${contant}&quot;,&#xd;
+    &quot;user_file&quot;: ${user_file},&#xd;
+    &quot;manager_approve&quot;: {&#xd;
+      &quot;result&quot;: 1,&#xd;
+      &quot;signature&quot;: &quot;&quot;,&#xd;
+      &quot;judgment&quot;: &quot;&quot;,&#xd;
+      &quot;photos&quot;: [],&#xd;
+      &quot;audit_at&quot;: 1608022156.978&#xd;
+    }&#xd;
+  },&#xd;
+  &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
+  &quot;task_id&quot;: 4,&#xd;
+  &quot;process_id&quot;: &quot;${process_id}&quot;,&#xd;
+  &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
+  &quot;cc&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="甲方项目经理审核" enabled="true"/>
+        <hashTree>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+            <collectionProp name="CookieManager.cookies"/>
+            <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+            <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+          </CookieManager>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="甲方登录" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="user_name" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">kentest70</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">user_name</stringProp>
+                </elementProp>
+                <elementProp name="password" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">password</stringProp>
+                </elementProp>
+                <elementProp name="group_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_code</stringProp>
+                </elementProp>
+                <elementProp name="remember_me" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">0</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">remember_me</stringProp>
+                </elementProp>
+                <elementProp name="verify_code" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">verify_code</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/uc/user/login/</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="登录断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="927843401">登录成功</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单审核内容" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="operation_def_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">complete_task</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">operation_def_id</stringProp>
+                </elementProp>
+                <elementProp name="task_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">5</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">task_id</stringProp>
+                </elementProp>
+                <elementProp name="process_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${process_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process_id</stringProp>
+                </elementProp>
+                <elementProp name="process" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">worktransfer_yc</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">process</stringProp>
+                </elementProp>
+                <elementProp name="group_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${group_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">group_id</stringProp>
+                </elementProp>
+                <elementProp name="team_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${team_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">team_id</stringProp>
+                </elementProp>
+                <elementProp name="project_id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${project_id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">project_id</stringProp>
+                </elementProp>
+                <elementProp name="page_level" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${page_level}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">page_level</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/get/</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取审核内容" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">content;user_file;manager_approve;</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields.content;$.data.data.f_fields.user_file;$.data.data.f_fields.manager_approve</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0;0;0;</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="甲方项目经理审核通过表单" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;fields&quot;: {&#xd;
+    &quot;contant&quot;: &quot;${contant}&quot;,&#xd;
+    &quot;user_file&quot;: ${user_file},&#xd;
+    &quot;manager_approve&quot;: ${manager_approve},&#xd;
+    &quot;first_party_approve&quot;: {&#xd;
+      &quot;result&quot;: 1,&#xd;
+      &quot;signature&quot;: &quot;&quot;,&#xd;
+      &quot;judgment&quot;: &quot;&quot;,&#xd;
+      &quot;photos&quot;: [],&#xd;
+      &quot;audit_at&quot;: 1608023901.544&#xd;
+    }&#xd;
+  },&#xd;
+  &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
+  &quot;task_id&quot;: 5,&#xd;
+  &quot;process_id&quot;: &quot;${process_id}&quot;,&#xd;
+  &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
+  &quot;cc&quot;: []&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
         <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="调试取样器" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
@@ -670,6 +1946,35 @@
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </LoopController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="事务控制器" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree/>
+        <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+          <intProp name="OnError.action">0</intProp>
+        </ResultAction>
+        <hashTree/>
+        <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="随机控制器" enabled="true">
+          <intProp name="InterleaveControl.style">1</intProp>
+        </RandomController>
+        <hashTree/>
+        <RandomOrderController guiclass="RandomOrderControllerGui" testclass="RandomOrderController" testname="随机顺序控制器" enabled="true"/>
+        <hashTree/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="1367302516">工作面移交</stringProp>
+            <stringProp name="-343983654">总监审核表单</stringProp>
+          </collectionProp>
+        </ModuleController>
         <hashTree/>
       </hashTree>
     </hashTree>
