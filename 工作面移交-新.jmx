@@ -16,7 +16,7 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">2</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
@@ -39,12 +39,6 @@
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
-        <hashTree/>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
-          <collectionProp name="CookieManager.cookies"/>
-          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
-          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
-        </CookieManager>
         <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
@@ -120,11 +114,29 @@
           </collectionProp>
         </Arguments>
         <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV 数据文件设置" enabled="false">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames"></stringProp>
+        </CSVDataSet>
+        <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="发起人发起表单并验证表单生成" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </LoopController>
         <hashTree>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+            <collectionProp name="CookieManager.cookies"/>
+            <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+            <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+          </CookieManager>
+          <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="发起人登录" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
@@ -887,7 +899,7 @@ validate(instance=ojt, schema=schema_array_noprop)
     &quot;manage&quot;: 28,&#xd;
     &quot;receive&quot;: 26,&#xd;
     &quot;deliver&quot;: &quot;${deliver}&quot;,&#xd;
-    &quot;contant&quot;: &quot;${content}&quot;,&#xd;
+    &quot;content&quot;: &quot;${content}&quot;,&#xd;
     &quot;user_file&quot;: [&#xd;
       {&#xd;
         &quot;name&quot;: &quot;IMG_1.png&quot;,&#xd;
@@ -903,11 +915,7 @@ validate(instance=ojt, schema=schema_array_noprop)
   &quot;operation_def_id&quot;: &quot;worktransfer_create&quot;,&#xd;
   &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
   &quot;event&quot;: &quot;3&quot;,&#xd;
-  &quot;cc&quot;: [&#xd;
-    115429,&#xd;
-    115430,&#xd;
-    115431&#xd;
-  ]&#xd;
+  &quot;cc&quot;: []&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
@@ -1221,6 +1229,16 @@ validate(instance=ojt, schema=schema_array_noprop)
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             </JSONPostProcessor>
             <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="88863673">&quot;result&quot;:0</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="确认移交表单" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1341,7 +1359,7 @@ validate(instance=ojt, schema=schema_array_noprop)
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单接收内容" enabled="false">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单接收内容" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="operation_def_id" elementType="HTTPArgument">
@@ -1416,7 +1434,24 @@ validate(instance=ojt, schema=schema_array_noprop)
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取移交内容" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">f_fields</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="88863673">&quot;result&quot;:0</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="确认接收表单" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -1613,11 +1648,21 @@ validate(instance=ojt, schema=schema_array_noprop)
           </HTTPSamplerProxy>
           <hashTree>
             <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取审核内容" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">content;user_file</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields.content;$.data.data.f_fields.user_file</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">user_file</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields.user_file</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-              <stringProp name="JSONPostProcessor.defaultValues">0;0</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
             </JSONPostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="88863673">&quot;result&quot;:0</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="总监审核通过表单" enabled="true">
@@ -1628,14 +1673,13 @@ validate(instance=ojt, schema=schema_array_noprop)
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
   &quot;fields&quot;: {&#xd;
-    &quot;contant&quot;: &quot;${contant}&quot;,&#xd;
     &quot;user_file&quot;: ${user_file},&#xd;
     &quot;manager_approve&quot;: {&#xd;
       &quot;result&quot;: 1,&#xd;
       &quot;signature&quot;: &quot;&quot;,&#xd;
       &quot;judgment&quot;: &quot;&quot;,&#xd;
       &quot;photos&quot;: [],&#xd;
-      &quot;audit_at&quot;: 1608022156.978&#xd;
+      &quot;audit_at&quot;: ${__time(/1000,)}&#xd;
     }&#xd;
   },&#xd;
   &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
@@ -1815,22 +1859,36 @@ validate(instance=ojt, schema=schema_array_noprop)
           </HTTPSamplerProxy>
           <hashTree>
             <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="提取审核内容" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">content;user_file;manager_approve;</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields.content;$.data.data.f_fields.user_file;$.data.data.f_fields.manager_approve</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">user_file;manager_approve;</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.data.f_fields.user_file;$.data.data.f_fields.manager_approve</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-              <stringProp name="JSONPostProcessor.defaultValues">0;0;0;</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0;0;</stringProp>
             </JSONPostProcessor>
             <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="88863673">&quot;result&quot;:0</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="甲方项目经理审核通过表单" enabled="true">
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
+          <InterleaveControl guiclass="InterleaveControlGui" testclass="InterleaveControl" testname="审核结果交替控制器" enabled="true">
+            <intProp name="InterleaveControl.style">1</intProp>
+            <boolProp name="InterleaveControl.accrossThreads">false</boolProp>
+          </InterleaveControl>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="甲方项目经理审核通过表单" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
   &quot;fields&quot;: {&#xd;
-    &quot;contant&quot;: &quot;${contant}&quot;,&#xd;
     &quot;user_file&quot;: ${user_file},&#xd;
     &quot;manager_approve&quot;: ${manager_approve},&#xd;
     &quot;first_party_approve&quot;: {&#xd;
@@ -1838,7 +1896,7 @@ validate(instance=ojt, schema=schema_array_noprop)
       &quot;signature&quot;: &quot;&quot;,&#xd;
       &quot;judgment&quot;: &quot;&quot;,&#xd;
       &quot;photos&quot;: [],&#xd;
-      &quot;audit_at&quot;: 1608023901.544&#xd;
+      &quot;audit_at&quot;: ${__time(/1000,)}&#xd;
     }&#xd;
   },&#xd;
   &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
@@ -1847,25 +1905,91 @@ validate(instance=ojt, schema=schema_array_noprop)
   &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
   &quot;cc&quot;: []&#xd;
 }</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
-            <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
-            <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree/>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+              <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1658181597">{&quot;data&quot;:{},&quot;result&quot;:0}</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="甲方项目经理审核表单不通过" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;fields&quot;: {&#xd;
+    &quot;user_file&quot;: ${user_file},&#xd;
+    &quot;manager_approve&quot;: ${manager_approve},&#xd;
+    &quot;first_party_approve&quot;: {&#xd;
+      &quot;result&quot;: 2,&#xd;
+      &quot;signature&quot;: &quot;&quot;,&#xd;
+      &quot;judgment&quot;: &quot;&quot;,&#xd;
+      &quot;photos&quot;: [],&#xd;
+      &quot;audit_at&quot;: ${__time(/1000,)}&#xd;
+    }&#xd;
+  },&#xd;
+  &quot;operation_def_id&quot;: &quot;complete_task&quot;,&#xd;
+  &quot;task_id&quot;: 5,&#xd;
+  &quot;process_id&quot;: &quot;${process_id}&quot;,&#xd;
+  &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
+  &quot;cc&quot;: []&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+              <stringProp name="HTTPSampler.path">/app_flow/v1/papi/process/worktransfer_yc/complete_task/submit/?group_id=${group_id}&amp;team_id=${team_id}&amp;project_id=${project_id}&amp;page_level=project</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1658181597">{&quot;data&quot;:{},&quot;result&quot;:0}</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
         </hashTree>
         <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="调试取样器" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
@@ -1946,35 +2070,6 @@ validate(instance=ojt, schema=schema_array_noprop)
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
-        <hashTree/>
-        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
-          <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </LoopController>
-        <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="事务控制器" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">false</boolProp>
-        </TransactionController>
-        <hashTree/>
-        <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
-          <intProp name="OnError.action">0</intProp>
-        </ResultAction>
-        <hashTree/>
-        <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="随机控制器" enabled="true">
-          <intProp name="InterleaveControl.style">1</intProp>
-        </RandomController>
-        <hashTree/>
-        <RandomOrderController guiclass="RandomOrderControllerGui" testclass="RandomOrderController" testname="随机顺序控制器" enabled="true"/>
-        <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="1367302516">工作面移交</stringProp>
-            <stringProp name="-343983654">总监审核表单</stringProp>
-          </collectionProp>
-        </ModuleController>
         <hashTree/>
       </hashTree>
     </hashTree>

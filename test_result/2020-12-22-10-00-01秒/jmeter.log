@@ -1,0 +1,164 @@
+2020-12-22 10:00:04,805 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2020-12-22 10:00:04,835 INFO o.a.j.JMeter: Loading user properties from: C:\apache-jmeter-5.3\bin\user.properties
+2020-12-22 10:00:04,838 INFO o.a.j.JMeter: Loading system properties from: C:\apache-jmeter-5.3\bin\system.properties
+2020-12-22 10:00:04,842 INFO o.a.j.JMeter: Copyright (c) 1998-2020 The Apache Software Foundation
+2020-12-22 10:00:04,842 INFO o.a.j.JMeter: Version 5.3
+2020-12-22 10:00:04,842 INFO o.a.j.JMeter: java.version=1.8.0_201
+2020-12-22 10:00:04,843 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2020-12-22 10:00:04,843 INFO o.a.j.JMeter: os.name=Windows 10
+2020-12-22 10:00:04,843 INFO o.a.j.JMeter: os.arch=amd64
+2020-12-22 10:00:04,844 INFO o.a.j.JMeter: os.version=10.0
+2020-12-22 10:00:04,844 INFO o.a.j.JMeter: file.encoding=GBK
+2020-12-22 10:00:04,844 INFO o.a.j.JMeter: java.awt.headless=true
+2020-12-22 10:00:04,844 INFO o.a.j.JMeter: Max memory     =1073741824
+2020-12-22 10:00:04,845 INFO o.a.j.JMeter: Available Processors =8
+2020-12-22 10:00:04,858 INFO o.a.j.JMeter: Default Locale=English (EN)
+2020-12-22 10:00:04,859 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2020-12-22 10:00:04,859 INFO o.a.j.JMeter: JMeterHome=C:\apache-jmeter-5.3
+2020-12-22 10:00:04,859 INFO o.a.j.JMeter: user.dir  =C:\Users\hallo\AppData\Local\Programs\Python
+2020-12-22 10:00:04,862 INFO o.a.j.JMeter: PWD       =C:\Users\hallo\AppData\Local\Programs\Python
+2020-12-22 10:00:04,896 INFO o.a.j.JMeter: IP: 192.168.13.67 Name: LAPTOP-3BSH24T4 FullName: LAPTOP-3BSH24T4
+2020-12-22 10:00:04,904 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'C:\jmeter_test_plan\report\2020-12-22-10-00-01秒'
+2020-12-22 10:00:04,911 INFO o.a.j.s.FileServer: Default base='C:\Users\hallo\AppData\Local\Programs\Python'
+2020-12-22 10:00:04,919 INFO o.a.j.s.FileServer: Set new base='C:\jmeter_test_plan'
+2020-12-22 10:00:05,220 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2020-12-22 10:00:05,274 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2020-12-22 10:00:05,283 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2020-12-22 10:00:05,296 INFO o.a.j.s.SaveService: Loading file: C:\jmeter_test_plan\工作面移交-新.jmx
+2020-12-22 10:00:05,405 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2020-12-22 10:00:05,434 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-12-22 10:00:05,435 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-12-22 10:00:05,435 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-12-22 10:00:05,435 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2020-12-22 10:00:05,435 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2020-12-22 10:00:05,436 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2020-12-22 10:00:05,659 INFO o.a.j.JMeter: Creating summariser <summary>
+2020-12-22 10:00:05,676 INFO o.a.j.r.d.ReportGenerator: ReportGenerator will use for Parsing the separator: ','
+2020-12-22 10:00:05,677 INFO o.a.j.r.d.ReportGenerator: Will generate report at end of test from  results file: C:\jmeter_test_plan\test_result\2020-12-22-10-00-01秒\result.jtl
+2020-12-22 10:00:05,677 INFO o.a.j.r.d.ReportGenerator: Reading report generator properties from: C:\apache-jmeter-5.3\bin\reportgenerator.properties
+2020-12-22 10:00:05,681 INFO o.a.j.r.d.ReportGenerator: Merging with JMeter properties
+2020-12-22 10:00:05,698 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.temp_dir' not found, using default value 'temp' instead.
+2020-12-22 10:00:05,708 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.apdex_per_transaction' not found, using default value 'null' instead.
+2020-12-22 10:00:05,708 INFO o.a.j.r.c.ReportGeneratorConfiguration: apdex_per_transaction is empty, not APDEX per transaction customization
+2020-12-22 10:00:05,708 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.sample_filter' not found, using default value 'null' instead.
+2020-12-22 10:00:05,709 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.report_title' not found, using default value 'null' instead.
+2020-12-22 10:00:05,709 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.start_date' not found, using default value 'null' instead.
+2020-12-22 10:00:05,710 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.end_date' not found, using default value 'null' instead.
+2020-12-22 10:00:05,710 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.date_format' not found, using default value 'null' instead.
+2020-12-22 10:00:05,711 INFO o.a.j.r.c.ReportGeneratorConfiguration: Will use date range start date: null, end date: null
+2020-12-22 10:00:05,725 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.totalTPS.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,726 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.activeThreadsOverTime.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,726 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.timeVsThreads.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,727 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimeDistribution.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,727 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.transactionsPerSecond.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,728 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentiles.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,728 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentilesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,729 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,729 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.connectTimeOverTime.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,730 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.latenciesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2020-12-22 10:00:05,744 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.filters_only_sample_series' not found, using default value 'true' instead.
+2020-12-22 10:00:05,744 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.series_filter' not found, using default value '' instead.
+2020-12-22 10:00:05,745 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.show_controllers_only' not found, using default value 'false' instead.
+2020-12-22 10:00:05,746 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.filters_only_sample_series' not found, using default value 'true' instead.
+2020-12-22 10:00:05,747 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.series_filter' not found, using default value '' instead.
+2020-12-22 10:00:05,747 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.show_controllers_only' not found, using default value 'false' instead.
+2020-12-22 10:00:05,765 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2020-12-22 10:00:05,766 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2020-12-22 10:00:05,767 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2020-12-22 10:00:05,779 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2020-12-22 10:00:05,779 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2020-12-22 10:00:06,676 INFO o.a.j.JMeter: Running test (1608602406676)
+2020-12-22 10:00:06,757 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : 工作面移交
+2020-12-22 10:00:06,757 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group 工作面移交.
+2020-12-22 10:00:06,758 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2020-12-22 10:00:06,758 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2020-12-22 10:00:06,774 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2020-12-22 10:00:06,775 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2020-12-22 10:00:06,786 INFO o.a.j.t.JMeterThread: Thread started: 工作面移交 1-1
+2020-12-22 10:00:06,829 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = LAPTOP-3BSH24T4
+2020-12-22 10:00:06,845 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2020-12-22 10:00:06,850 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2020-12-22 10:00:06,850 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2020-12-22 10:00:06,851 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2020-12-22 10:00:06,851 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2020-12-22 10:00:07,891 INFO o.a.j.s.FileServer: Stored: C:\workspace\my_png\IMG_2.png
+2020-12-22 10:00:09,193 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:09,298 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:09,520 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:15,309 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:15,346 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:15,705 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:15,733 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:15,992 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:16,268 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:16,302 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:16,552 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:18,642 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:18,642 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:18,692 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:18,692 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:18,855 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:18,855 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:24,401 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:24,401 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:24,496 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:24,496 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:24,705 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:24,705 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:24,729 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:24,729 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:24,898 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:24,899 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:25,215 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:25,215 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:25,299 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie Manager superseded by HTTP Cookie管理器
+2020-12-22 10:00:25,300 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:25,469 WARN o.a.j.p.h.s.HTTPSamplerBase: Existing CookieManager HTTP Cookie管理器 superseded by HTTP Cookie Manager
+2020-12-22 10:00:26,205 INFO o.a.j.t.JMeterThread: Thread is done: 工作面移交 1-1
+2020-12-22 10:00:26,205 INFO o.a.j.t.JMeterThread: Thread finished: 工作面移交 1-1
+2020-12-22 10:00:26,207 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2020-12-22 10:00:26,210 INFO o.a.j.r.Summariser: summary =     36 in 00:00:20 =    1.8/s Avg:   527 Min:     1 Max:  5787 Err:     2 (5.56%)
+2020-12-22 10:00:26,212 INFO o.a.j.JMeter: Generating Dashboard
+2020-12-22 10:00:26,212 INFO o.a.j.r.d.ReportGenerator: Flushing result collector before report Generation
+2020-12-22 10:00:26,239 INFO o.a.j.r.p.NormalizerSampleConsumer: Using format, 'ms', to parse timeStamp field
+2020-12-22 10:00:27,719 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): beginDate produced 0 samples
+2020-12-22 10:00:27,720 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): endDate produced 0 samples
+2020-12-22 10:00:27,725 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ApdexSummaryConsumer#stopProducing(): apdexSummary produced 0 samples
+2020-12-22 10:00:27,726 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.RequestsSummaryConsumer#stopProducing(): requestsSummary produced 0 samples
+2020-12-22 10:00:27,745 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.StatisticsSummaryConsumer#stopProducing(): statisticsSummary produced 0 samples
+2020-12-22 10:00:27,758 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.Top5ErrorsBySamplerConsumer#stopProducing(): top5ErrorsBySampler produced 0 samples
+2020-12-22 10:00:27,758 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ErrorsSummaryConsumer#stopProducing(): errorsSummary produced 0 samples
+2020-12-22 10:00:27,759 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.HitsPerSecondGraphConsumer#stopProducing(): hitsPerSecond produced 0 samples
+2020-12-22 10:00:27,803 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyVSRequestGraphConsumer#stopProducing(): latencyVsRequest produced 0 samples
+2020-12-22 10:00:27,804 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.SyntheticResponseTimeDistributionGraphConsumer#stopProducing(): syntheticResponseTimeDistribution produced 0 samples
+2020-12-22 10:00:27,805 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.BytesThroughputGraphConsumer#stopProducing(): bytesThroughputOverTime produced 0 samples
+2020-12-22 10:00:27,805 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.CodesPerSecondGraphConsumer#stopProducing(): codesPerSecond produced 0 samples
+2020-12-22 10:00:27,831 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeVSRequestGraphConsumer#stopProducing(): responseTimeVsRequest produced 0 samples
+2020-12-22 10:00:27,832 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): startIntervalControlerFilter produced 252 samples
+2020-12-22 10:00:27,832 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TotalTPSGraphConsumer#stopProducing(): totalTPS produced 0 samples
+2020-12-22 10:00:27,832 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ActiveThreadsGraphConsumer#stopProducing(): activeThreadsOverTime produced 0 samples
+2020-12-22 10:00:27,832 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TimeVSThreadGraphConsumer#stopProducing(): timeVsThreads produced 0 samples
+2020-12-22 10:00:27,834 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeDistributionGraphConsumer#stopProducing(): responseTimeDistribution produced 0 samples
+2020-12-22 10:00:27,835 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TransactionsPerSecondGraphConsumer#stopProducing(): transactionsPerSecond produced 0 samples
+2020-12-22 10:00:27,835 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesGraphConsumer#stopProducing(): responseTimePercentiles produced 0 samples
+2020-12-22 10:00:27,854 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesOverTimeGraphConsumer#stopProducing(): responseTimePercentilesOverTime produced 0 samples
+2020-12-22 10:00:27,854 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeOverTimeGraphConsumer#stopProducing(): responseTimesOverTime produced 0 samples
+2020-12-22 10:00:27,855 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ConnectTimeOverTimeGraphConsumer#stopProducing(): connectTimeOverTime produced 0 samples
+2020-12-22 10:00:27,855 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyOverTimeGraphConsumer#stopProducing(): latenciesOverTime produced 0 samples
+2020-12-22 10:00:27,856 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): nameFilter produced 540 samples
+2020-12-22 10:00:27,856 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): dateRangeFilter produced 108 samples
+2020-12-22 10:00:27,856 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.NormalizerSampleConsumer#stopProducing(): normalizer produced 36 samples
+2020-12-22 10:00:27,857 INFO o.a.j.r.p.CsvFileSampleSource: produce(): 36 samples produced in 1s 565 ms on channel 0
+2020-12-22 10:00:27,858 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'json' of className:'org.apache.jmeter.report.dashboard.JsonExporter'
+2020-12-22 10:00:27,862 INFO o.a.j.r.d.JsonExporter: Found data for consumer statisticsSummary?in context
+2020-12-22 10:00:27,862 INFO o.a.j.r.d.JsonExporter: Creating statistics for overall
+2020-12-22 10:00:27,864 INFO o.a.j.r.d.JsonExporter: Creating statistics for other transactions
+2020-12-22 10:00:27,865 INFO o.a.j.r.d.JsonExporter: Checking output folder
+2020-12-22 10:00:27,868 INFO o.a.j.r.d.JsonExporter: Writing statistics JSON to C:\jmeter_test_plan\report\2020-12-22-10-00-01秒\statistics.json
+2020-12-22 10:00:28,266 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'html' of className:'org.apache.jmeter.report.dashboard.HtmlTemplateExporter'
+2020-12-22 10:00:28,277 INFO o.a.j.r.d.HtmlTemplateExporter: Will generate dashboard in folder: C:\jmeter_test_plan\report\2020-12-22-10-00-01秒
+2020-12-22 10:00:28,934 ERROR f.configuration: DefaultObjectWrapper.incompatibleImprovements was set to the object returned by Configuration.getVersion(). That defeats the purpose of incompatibleImprovements, and makes upgrading FreeMarker a potentially breaking change. Also, this probably won't be allowed starting from 2.4.0. Instead, set incompatibleImprovements to the highest concrete version that's known to be compatible with your application.
+2020-12-22 10:00:28,939 ERROR f.configuration: Configuration.incompatibleImprovements was set to the object returned by Configuration.getVersion(). That defeats the purpose of incompatibleImprovements, and makes upgrading FreeMarker a potentially breaking change. Also, this probably won't be allowed starting from 2.4.0. Instead, set incompatibleImprovements to the highest concrete version that's known to be compatible with your application.
+2020-12-22 10:00:28,965 INFO o.a.j.r.d.HtmlTemplateExporter: Report will be generated in: C:\jmeter_test_plan\report\2020-12-22-10-00-01秒, creating folder structure
+2020-12-22 10:00:28,973 INFO o.a.j.r.d.TemplateVisitor: Copying folder from 'C:\apache-jmeter-5.3\bin\report-template' to 'C:\jmeter_test_plan\report\2020-12-22-10-00-01秒', got message: C:\jmeter_test_plan\report\2020-12-22-10-00-01秒, found non empty folder with following content [C:\jmeter_test_plan\report\2020-12-22-10-00-01秒\statistics.json], will be ignored
+2020-12-22 10:00:30,235 INFO o.a.j.JMeter: Dashboard generated
