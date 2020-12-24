@@ -19,7 +19,6 @@ josn_str = json.dumps(responsedata)  #json在调用dumps时会将中文转化为
 
 ojt = json.loads(josn_str).encode('utf-8') #  <type 'unicode'>
 
-
 ojt = json.loads(ojt)  # <type 'dict'>
 
 

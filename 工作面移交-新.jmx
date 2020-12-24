@@ -49,6 +49,12 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+        </CookieManager>
+        <hashTree/>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="用户变量" enabled="true">
           <collectionProp name="Arguments.arguments">
             <elementProp name="form_type" elementType="Argument">
@@ -114,16 +120,16 @@
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV 数据文件设置" enabled="false">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="账户数据" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <boolProp name="ignoreFirstLine">false</boolProp>
+          <stringProp name="filename">C:/jmeter_test_plan/worktransfer_yc.csv</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
           <stringProp name="shareMode">shareMode.all</stringProp>
           <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames"></stringProp>
+          <stringProp name="variableNames">creator,creator_id,creator_pwd,sender,sender_id,sender_pwd,receiver,receiver_id,receiver_pwd,manager,manager_id,manager_pwd,first_party,first_party_id,first_party_pwd</stringProp>
         </CSVDataSet>
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="发起人发起表单并验证表单生成" enabled="true">
@@ -142,14 +148,14 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="user_name" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">kentestgrp10</stringProp>
+                  <stringProp name="Argument.value">${creator}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">user_name</stringProp>
                 </elementProp>
                 <elementProp name="password" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.value">${creator_pwd}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">password</stringProp>
@@ -167,13 +173,6 @@
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">remember_me</stringProp>
-                </elementProp>
-                <elementProp name="verify_code" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value"></stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">verify_code</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
@@ -203,7 +202,7 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单定义" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单定义/list/definition/" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="form_name" elementType="HTTPArgument">
@@ -299,7 +298,7 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取发起表单定义" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取发起表单定义/start/definition/" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="operation_def_id" elementType="HTTPArgument">
@@ -368,7 +367,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="断言响应结果体" enabled="false">
+            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="断言响应结果体" enabled="true">
               <stringProp name="scriptLanguage">jython</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -378,7 +377,7 @@ import sys
 import os
 import json
 
-
+#加入python2的路径，导入pip2安装的第三方库
 sys.path.append(r&apos;C:\Users\hallo\AppData\Local\Programs\Python\Python27\Lib&apos;)
 sys.path.append(r&apos;C:\Users\hallo\AppData\Local\Programs\Python\Python27\Lib\site-packages&apos;)
 
@@ -395,7 +394,7 @@ josn_str = json.dumps(responsedata)  #json在调用dumps时会将中文转化为
 ojt = json.loads(josn_str).encode(&apos;utf-8&apos;) #  &lt;type &apos;unicode&apos;&gt;
 
 
-ojt = json.loads(ojt)  # &lt;type &apos;dict&apos;&gt;
+ojt = json.loads(ojt)  #  &lt;type &apos;dict&apos;&gt;
 
 
 
@@ -590,7 +589,7 @@ schema_array_noprop = {
                         &quot;properties&quot;: {
                             &quot;type&quot;: &quot;object&quot;,
                             &quot;required&quot;: [
-                                &quot;contant&quot;,
+                                &quot;content&quot;,
                                 &quot;contract&quot;,
                                 &quot;deliver&quot;,
                                 &quot;first_party&quot;,
@@ -887,7 +886,7 @@ validate(instance=ojt, schema=schema_array_noprop)
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="填写工作面移交表单" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="填写工作面移交表单/start/submit/" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -907,10 +906,10 @@ validate(instance=ojt, schema=schema_array_noprop)
         &quot;md5&quot;: &quot;${file_md5}&quot;&#xd;
       }&#xd;
     ],&#xd;
-    &quot;sender&quot;: 115438,&#xd;
-    &quot;receiver&quot;: 115431,&#xd;
-    &quot;manager&quot;: 116388,&#xd;
-    &quot;first_party&quot;: 116738&#xd;
+    &quot;sender&quot;: ${sender_id},&#xd;
+    &quot;receiver&quot;: ${receiver_id},&#xd;
+    &quot;manager&quot;: ${manager_id},&#xd;
+    &quot;first_party&quot;: ${first_party_id}&#xd;
   },&#xd;
   &quot;operation_def_id&quot;: &quot;worktransfer_create&quot;,&#xd;
   &quot;process&quot;: &quot;worktransfer_yc&quot;,&#xd;
@@ -947,7 +946,7 @@ validate(instance=ojt, schema=schema_array_noprop)
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="验证表单生成" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="验证表单生成/list/search/" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="form_name" elementType="HTTPArgument">
@@ -1086,14 +1085,14 @@ validate(instance=ojt, schema=schema_array_noprop)
               <collectionProp name="Arguments.arguments">
                 <elementProp name="user_name" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">kentest48</stringProp>
+                  <stringProp name="Argument.value">${sender}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">user_name</stringProp>
                 </elementProp>
                 <elementProp name="password" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.value">${sender_pwd}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">password</stringProp>
@@ -1111,13 +1110,6 @@ validate(instance=ojt, schema=schema_array_noprop)
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">remember_me</stringProp>
-                </elementProp>
-                <elementProp name="verify_code" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value"></stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">verify_code</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
@@ -1147,7 +1139,7 @@ validate(instance=ojt, schema=schema_array_noprop)
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单移交内容" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取表单移交内容/complete_task/get/" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="operation_def_id" elementType="HTTPArgument">
@@ -1240,7 +1232,7 @@ validate(instance=ojt, schema=schema_array_noprop)
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="确认移交表单" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="确认移交表单/complete_task/submit/" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -1298,14 +1290,14 @@ validate(instance=ojt, schema=schema_array_noprop)
               <collectionProp name="Arguments.arguments">
                 <elementProp name="user_name" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">kentest41</stringProp>
+                  <stringProp name="Argument.value">${receiver}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">user_name</stringProp>
                 </elementProp>
                 <elementProp name="password" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.value">${receiver_pwd}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">password</stringProp>
@@ -1323,13 +1315,6 @@ validate(instance=ojt, schema=schema_array_noprop)
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">remember_me</stringProp>
-                </elementProp>
-                <elementProp name="verify_code" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value"></stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">verify_code</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
@@ -1510,14 +1495,14 @@ validate(instance=ojt, schema=schema_array_noprop)
               <collectionProp name="Arguments.arguments">
                 <elementProp name="user_name" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">kentest52</stringProp>
+                  <stringProp name="Argument.value">${manager}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">user_name</stringProp>
                 </elementProp>
                 <elementProp name="password" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.value">${manager_pwd}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">password</stringProp>
@@ -1535,13 +1520,6 @@ validate(instance=ojt, schema=schema_array_noprop)
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">remember_me</stringProp>
-                </elementProp>
-                <elementProp name="verify_code" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value"></stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">verify_code</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
@@ -1721,14 +1699,14 @@ validate(instance=ojt, schema=schema_array_noprop)
               <collectionProp name="Arguments.arguments">
                 <elementProp name="user_name" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">kentest70</stringProp>
+                  <stringProp name="Argument.value">${first_party}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">user_name</stringProp>
                 </elementProp>
                 <elementProp name="password" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">12345678</stringProp>
+                  <stringProp name="Argument.value">${first_party_pwd}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">password</stringProp>
@@ -1746,13 +1724,6 @@ validate(instance=ojt, schema=schema_array_noprop)
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">remember_me</stringProp>
-                </elementProp>
-                <elementProp name="verify_code" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value"></stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">verify_code</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
