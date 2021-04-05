@@ -11,7 +11,7 @@ def askCmd():
 	test_time = time.strftime("%Y-%m-%d-%H-%M-%S",time.localtime())+'秒'
 
 	#-t 指定JMX脚本文件路径
-	filename = r'C:\jmeter_test_plan\工作面移交-新.jmx'
+	filename = r'C:\jmeter_test_plan\接口定时测试.jmx'
 
 	#-l 测试结果文件(指定结果文件路径)
 	result_file = r'C:\jmeter_test_plan\test_result'+'\\'+test_time+r'\result.jtl'
